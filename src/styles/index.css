@@ -1,0 +1,74 @@
+@import "./fonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-feature-settings: "kern" 1;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: theme("colors.gold.300");
+    color: theme("colors.navy.900");
+  }
+
+  /* Visible focus ring for keyboard navigation — required across
+     the whole site per accessibility requirements. */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid theme("colors.gold.500");
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: theme("fontFamily.banglaHeadline");
+    color: theme("colors.navy.900");
+  }
+}
+
+@layer components {
+  /* Shared "eyebrow" label used above section headings across the
+     homepage (Most Read, category sections, etc.) */
+  .section-title {
+    @apply relative flex items-center gap-3 border-b-2 border-navy-800 pb-2 mb-4;
+  }
+
+  .section-title h2 {
+    @apply text-xl md:text-2xl font-bold text-navy-900;
+  }
+
+  .section-title::after {
+    content: "";
+    @apply hidden;
+  }
+
+  .ad-slot {
+    @apply flex flex-col items-center justify-center gap-1 border border-dashed border-ink-300 bg-ink-50 text-ink-400 text-xs py-2;
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-container px-4 md:px-6;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,0 +1,80 @@
+/* ============================================================
+   Local Bangla Font Architecture
+   ------------------------------------------------------------
+   Daily Jokhon Somoy NewsPro must NOT depend on a Google Fonts
+   CDN in production. src/assets/fonts/ currently holds 0-byte
+   PLACEHOLDER .woff2 files — they exist only so the build's
+   asset resolution succeeds (Vite errors on @font-face url()s
+   pointing at files that don't exist at all). REPLACE each file
+   with the real font (same filename) and no component or CSS
+   change is needed.
+
+   Until real font files are dropped in, browsers can't parse the
+   empty placeholders and silently fall back to the system Bangla
+   stack declared in tailwind.config.js (system-ui, sans-serif),
+   so the site still renders correctly either way.
+   ============================================================ */
+
+@font-face {
+  font-family: "Hind Siliguri";
+  src: url("../assets/fonts/HindSiliguri-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Hind Siliguri";
+  src: url("../assets/fonts/HindSiliguri-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Hind Siliguri";
+  src: url("../assets/fonts/HindSiliguri-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Hind Siliguri";
+  src: url("../assets/fonts/HindSiliguri-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans Bengali";
+  src: url("../assets/fonts/NotoSansBengali-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans Bengali";
+  src: url("../assets/fonts/NotoSansBengali-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif Bengali";
+  src: url("../assets/fonts/NotoSerifBengali-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
