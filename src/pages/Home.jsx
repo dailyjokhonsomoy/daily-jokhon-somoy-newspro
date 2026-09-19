@@ -140,7 +140,7 @@ export default function Home() {
         </div>
 
         {/* ---- Sidebar ---- */}
-        <div className="lg:sticky lg:top-[52px] lg:self-start">
+        <div className="lg:sticky lg:top-11 lg:self-start">
           <Sidebar />
         </div>
       </div>

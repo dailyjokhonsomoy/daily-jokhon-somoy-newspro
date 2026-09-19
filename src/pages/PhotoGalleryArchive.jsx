@@ -35,7 +35,7 @@ export default function PhotoGalleryArchive() {
             ))}
           </div>
         </div>
-        <div className="lg:sticky lg:top-[52px] lg:self-start">
+        <div className="lg:sticky lg:top-11 lg:self-start">
           <Sidebar />
         </div>
       </div>

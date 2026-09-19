@@ -7,9 +7,9 @@
 // and YouTube embeds are handled inline where content needs them
 // (see the single-article page for the inline media example).
 // ============================================================
-export default function ArticleBody({ blocks }) {
+export default function ArticleBody({ blocks, sizeClass = "text-base" }) {
   return (
-    <div className="max-w-content mx-auto md:mx-0 text-[17px] leading-[1.9] text-ink-800 space-y-4">
+    <div className={`max-w-content mx-auto md:mx-0 ${sizeClass} text-ink-800 space-y-4`}>
       {blocks.map((block, i) => {
         switch (block.type) {
           case "heading":

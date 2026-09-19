@@ -53,7 +53,7 @@ export default function ArticleListPage({
           <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
         </div>
 
-        <div className="lg:sticky lg:top-[52px] lg:self-start">
+        <div className="lg:sticky lg:top-11 lg:self-start">
           <Sidebar />
         </div>
       </div>

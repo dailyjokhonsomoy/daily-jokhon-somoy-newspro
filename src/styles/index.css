@@ -72,3 +72,24 @@
     display: none;
   }
 }
+
+/* Print isolation for the e-paper clipping view (ArticlePrintView):
+   hides everything on the page except the clipping itself so the
+   browser's print/"Save as PDF" dialog only outputs the article. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-clipping,
+  .print-clipping * {
+    visibility: visible;
+  }
+  .print-clipping {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
