@@ -44,7 +44,7 @@ export default function FeaturedNews({ mainStory, secondaryStories }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {secondaryStories.map((article, i) => (
           <div key={article.id} className="relative">
-            <span className="absolute -top-2 -left-2 z-10 w-7 h-7 flex items-center justify-center bg-navy-900 text-gold-400 text-sm font-bold rounded-full border-2 border-white">
+            <span className="absolute -top-2 -right-2 z-10 w-7 h-7 flex items-center justify-center bg-navy-900 text-gold-400 text-sm font-bold rounded-full border-2 border-white shadow-card">
               {i + 1}
             </span>
             <NewsCard article={article} size="md" />
