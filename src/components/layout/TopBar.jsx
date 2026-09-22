@@ -3,8 +3,8 @@ import { topBarLinks, siteConfig } from "../../data/siteConfig.js";
 import {
   getGregorianDateBn,
   getWeekdayBn,
-  getBanglaDatePlaceholder,
-  getHijriDatePlaceholder,
+  getBanglaDateBn,
+  getHijriDateBn,
 } from "../../utils/dateUtils.js";
 
 export default function TopBar() {
@@ -20,12 +20,13 @@ export default function TopBar() {
           <span className="hidden xs:inline text-navy-500">|</span>
           <span className="hidden xs:inline">{getGregorianDateBn(today)}</span>
           <span className="hidden md:inline text-navy-500">|</span>
-          <span className="hidden md:inline text-ink-300">
-            {getBanglaDatePlaceholder()}
-          </span>
+          <span className="hidden md:inline text-ink-300">{getBanglaDateBn(today)}</span>
           <span className="hidden lg:inline text-navy-500">|</span>
-          <span className="hidden lg:inline text-ink-300">
-            {getHijriDatePlaceholder()}
+          <span
+            className="hidden lg:inline text-ink-300"
+            title="তারিখটি গাণিতিক হিসাবে পাওয়া, চাঁদ দেখা কমিটির ঘোষণার সাথে ১ দিন এদিক-ওদিক হতে পারে"
+          >
+            {getHijriDateBn(today)}
           </span>
         </div>
 

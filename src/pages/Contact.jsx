@@ -1,21 +1,33 @@
 import { useState } from "react";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Send } from "lucide-react";
 import useDocumentMeta from "../hooks/useDocumentMeta.js";
 import Breadcrumb from "../components/common/Breadcrumb.jsx";
 import { siteConfig } from "../data/siteConfig.js";
 
 export default function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
 
   useDocumentMeta({ title: `যোগাযোগ | ${siteConfig.name}` });
 
+  const buildMailtoHref = () => {
+    const subject = form.subject || `${siteConfig.name} ওয়েবসাইট থেকে বার্তা`;
+    const body = `নাম: ${form.name}\nইমেইল: ${form.email}\n\n${form.message}`;
+    return `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // No backend is wired up yet — this is intentionally honest
-    // rather than faking a "message sent" confirmation. Phase 12+
-    // (WordPress conversion) will connect this to a real endpoint.
+    // No custom backend exists yet, so rather than faking a "sent to
+    // our server" confirmation, this opens the reader's own email
+    // client with the message pre-filled — genuinely functional
+    // today, no signup or server needed. A real form-handling
+    // endpoint can replace this later without changing the UI.
+    window.location.href = buildMailtoHref();
     setSubmitted(true);
   };
+
+  const handleChange = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
 
   return (
     <div className="container-page py-2">
@@ -25,66 +37,77 @@ export default function Contact() {
         <div className="bg-white shadow-card p-6">
           <h1 className="text-2xl font-bold text-navy-900 mb-4">যোগাযোগ করুন</h1>
 
-          {submitted ? (
-            <div className="bg-gold-50 border border-gold-300 text-navy-800 text-sm rounded-md p-4">
-              ফর্মটি পূরণ করার জন্য ধন্যবাদ। এই মুহূর্তে এই ফর্মটি কোনো সার্ভারে সংযুক্ত নয় —
-              এটি পরবর্তী ধাপে (WordPress সংস্করণে) সক্রিয় করা হবে। জরুরি প্রয়োজনে দয়া করে
-              সরাসরি ফোন বা ইমেইলে যোগাযোগ করুন।
+          {submitted && (
+            <div className="bg-gold-50 border border-gold-300 text-navy-800 text-sm rounded-md p-4 mb-4">
+              আপনার ইমেইল অ্যাপ খোলার চেষ্টা করা হয়েছে, বার্তাটি আগে থেকেই পূরণ করা আছে —
+              শুধু পাঠান বাটনে চাপুন। যদি অ্যাপটি নিজে থেকে না খোলে,{" "}
+              <a href={buildMailtoHref()} className="underline font-medium">
+                এখানে ক্লিক করুন
+              </a>{" "}
+              অথবা সরাসরি {siteConfig.contact.email}-এ ইমেইল করুন।
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-navy-700 mb-1">
-                  আপনার নাম
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  required
-                  className="w-full border border-ink-300 rounded-sm px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-navy-700 mb-1">
-                  ইমেইল
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  className="w-full border border-ink-300 rounded-sm px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
-                />
-              </div>
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-navy-700 mb-1">
-                  বিষয়
-                </label>
-                <input
-                  id="subject"
-                  type="text"
-                  required
-                  className="w-full border border-ink-300 rounded-sm px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-navy-700 mb-1">
-                  বার্তা
-                </label>
-                <textarea
-                  id="message"
-                  required
-                  rows={5}
-                  className="w-full border border-ink-300 rounded-sm px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-navy-800 hover:bg-navy-700 text-white font-semibold px-6 py-2.5 rounded-sm transition-colors"
-              >
-                বার্তা পাঠান
-              </button>
-            </form>
           )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-navy-700 mb-1">
+                আপনার নাম
+              </label>
+              <input
+                id="name"
+                type="text"
+                required
+                value={form.name}
+                onChange={handleChange("name")}
+                className="w-full border border-ink-300 rounded-sm px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-navy-700 mb-1">
+                ইমেইল
+              </label>
+              <input
+                id="email"
+                type="email"
+                required
+                value={form.email}
+                onChange={handleChange("email")}
+                className="w-full border border-ink-300 rounded-sm px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
+              />
+            </div>
+            <div>
+              <label htmlFor="subject" className="block text-sm font-medium text-navy-700 mb-1">
+                বিষয়
+              </label>
+              <input
+                id="subject"
+                type="text"
+                required
+                value={form.subject}
+                onChange={handleChange("subject")}
+                className="w-full border border-ink-300 rounded-sm px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-navy-700 mb-1">
+                বার্তা
+              </label>
+              <textarea
+                id="message"
+                required
+                rows={5}
+                value={form.message}
+                onChange={handleChange("message")}
+                className="w-full border border-ink-300 rounded-sm px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
+              />
+            </div>
+            <button
+              type="submit"
+              className="flex items-center gap-2 bg-navy-800 hover:bg-navy-700 text-white font-semibold px-6 py-2.5 rounded-sm transition-colors"
+            >
+              <Send size={16} /> বার্তা পাঠান
+            </button>
+          </form>
         </div>
 
         <div className="bg-white shadow-card p-5 h-fit space-y-4">
