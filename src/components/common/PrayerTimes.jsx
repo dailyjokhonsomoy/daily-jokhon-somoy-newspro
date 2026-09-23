@@ -1,11 +1,11 @@
 import { prayerNames } from "../../data/siteConfig.js";
-
-// TODO(phase-6): source real times from src/data/prayerTimes.js
-// (daily data for Dhaka, keyed by date).
-const PLACEHOLDER_TIMES = ["৪:৩২", "১২:০১", "৪:২০", "৬:০৫", "৭:২০"];
+import { calculatePrayerTimes, DHAKA_LOCATION } from "../../utils/prayerTimes.js";
+import { toBnDigits } from "../../utils/dateUtils.js";
 
 export default function PrayerTimes({ variant = "light" }) {
   const isLight = variant === "light";
+  const times = calculatePrayerTimes(new Date(), DHAKA_LOCATION);
+  const values = [times.fajr, times.dhuhr, times.asr, times.maghrib, times.isha];
 
   return (
     <div
@@ -18,7 +18,7 @@ export default function PrayerTimes({ variant = "light" }) {
           isLight ? "text-navy-700" : "text-gold-400"
         }`}
       >
-        নামাজের সময়
+        নামাজের সময় ({DHAKA_LOCATION.label})
       </p>
       <dl className="flex items-center gap-3 text-xs">
         {prayerNames.map((name, i) => (
@@ -29,7 +29,7 @@ export default function PrayerTimes({ variant = "light" }) {
                 isLight ? "text-navy-800" : "text-ink-100"
               }`}
             >
-              {PLACEHOLDER_TIMES[i]}
+              {toBnDigits(values[i])}
             </dd>
           </div>
         ))}
